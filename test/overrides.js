@@ -47,7 +47,7 @@ tape('overrides - type coercion', function(t) {
 
 ///////////////////////////////////////////
 
-tape('overrides - parameter extraction: build', function(t) {
+tape('overrides - parameter extraction', function(t) {
   t.plan(2);
   
   var input = [

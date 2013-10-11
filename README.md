@@ -4,7 +4,7 @@ Build, flatten and walk trees.
 [![browser support](https://ci.testling.com/jessetane/arborist.png)](https://ci.testling.com/jessetane/arborist)
 
 ## Why
-Sometimes it's convenient to have hierarchical data in linear list form, sometimes it's not. This module lets you transform your data from a linear list to a hierarchical tree and back again.
+Sometimes it's convenient to have hierarchical data in linear list form, sometimes it's not. This module lets you transform your data from a linear list to a hierarchical tree and back again. It also lets you recursively walk and transform data you already have in a tree.
 
 ## How
 The module exports a single class `Arborist`. Make yourself an instance:
