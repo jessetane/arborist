@@ -1,11 +1,13 @@
 # Arborist
 Build, flatten and walk trees.
 
-# Why
+[![browser support](https://ci.testling.com/jessetane/arborist.png)](https://ci.testling.com/jessetane/arborist)
+
+## Why
 Sometimes it's convenient to have hierarchical data in linear list form, sometimes it's not. This module lets you transform your data from a linear list to a hierarchical tree and back again.
 
-# How
-The module exports a single class `Arborist`. Make your self an instance:
+## How
+The module exports a single class `Arborist`. Make yourself an instance:
 ```
 var Arborist = require('arborist');
 var arborist = new Arborist;
@@ -91,28 +93,28 @@ console.log(JSON.stringify(tree, null, 2));
 // }
 ```
 
-# Methods
+## Methods
 * `build(nodelist)` returns a tree created from an array
 * `flatten(node)` returns an array created from a tree
 * `walk(node)` recursively walks a tree firing events for modifying nodes and / or their child nodelists
 
-# To override
+## To override
 * `resolveNode(node)` if your node has `id` & `parent` but is wrapped in another object, you can override this to unwrap it
 * `resolveNodeId(node)` if your nodes don't have `node.id` you need to implement this and return something unique
 * `resolveNodeParentId(node)` if your nodes don't have `node.parent` you need to implement this
 
-# Events
-NOTE: For simplicity, handlers are just methods you attach to your instances - I'm open to extending `EventEmitter` though
+## Events
+NOTE: For simplicity, handlers are just methods you attach to your instances
 * `willWalkNode(node)` called before any child node walking takes place
 * `didWalkNode(node)` called after all child nodes have been walked
 * `willWalkChildNode(node, parent, siblings)` called while walking a list of child nodes - this gives you inject or remove child nodes
 * `didWalkChildNode(node, parent, siblings)` called after all of a child's child nodes have been walked
 
-# Get it
+## Get it
 `npm install aborist`
 
-# Test it (in node and your browser)
+## Test it (in node and your browser)
 `npm test`
 
-# License
-WTFPL
+## License
+[WTFPL](http://www.wtfpl.net/txt/copying/)
