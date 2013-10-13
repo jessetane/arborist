@@ -4,15 +4,19 @@ Build, flatten and walk trees.
 [![browser support](https://ci.testling.com/jessetane/arborist.png)](https://ci.testling.com/jessetane/arborist)
 
 ## Why
-Sometimes it's convenient to have hierarchical data in linear list form, sometimes it's not. This module lets you transform your data from a linear list to a hierarchical tree and back again. It also lets you recursively walk and transform data you already have in a tree.
+Needed a way to visualize hierarchical data stored as a flat list.
 
 ## How
-The module exports a single class `Arborist`. Make yourself an instance:
+The module exports a single class `Arborist`. It allows you to:
+* transform datasets from flat lists to hierarchical trees and back again
+* recursively walk and transform hierarchical data structures
+
+Make yourself an instance:
 ```
 var Arborist = require('arborist');
 var arborist = new Arborist;
 ```
-If you're starting with linear data, use `parent` and `id` to describe a hierarchy:
+If you're starting with list data, use `parent` and `id` to describe a hierarchy:
 ```
 var data = [
   {
@@ -26,7 +30,6 @@ var data = [
 Then use your instance to build a tree from it:
 ```
 var tree = arborist.build(data);
-console.log(JSON.stringify(tree, null, 2));
 // {
 //   "childNodes": [
 //     {
@@ -77,7 +80,6 @@ arborist.didWalkChildNode = function(node, parent, siblings) {
 
 // ambulate
 arborist.walk(tree);
-console.log(JSON.stringify(tree, null, 2));
 // {
 //   "childNodes": [
 //     {
@@ -96,25 +98,26 @@ console.log(JSON.stringify(tree, null, 2));
 ## Methods
 * `build(nodelist)` returns a tree created from an array
 * `flatten(node)` returns an array created from a tree
-* `walk(node)` recursively walks a tree firing events for modifying nodes and / or their child nodelists
+* `walk(node)` recursively walks a tree
 
-## To override
+## Overridables
+#### Event-like
+* `willWalkNode(node)` called before any child node walking takes place
+* `didWalkNode(node)` called after all child nodes have been walked
+* `willWalkChildNode(node, parent, siblings)` called while walking a list of child nodes - `siblings` provides a way to make branch modifications
+* `didWalkChildNode(node, parent, siblings)` called after all of a child's child nodes have been walked
+
+#### Return value required
 * `resolveNode(node)` if your node has `id` & `parent` but is wrapped in another object, you can override this to unwrap it
 * `resolveNodeId(node)` if your nodes don't have `node.id` you need to implement this and return something unique
 * `resolveNodeParentId(node)` if your nodes don't have `node.parent` you need to implement this
 
-## Events
-NOTE: For simplicity, handlers are just methods you attach to your instances
-* `willWalkNode(node)` called before any child node walking takes place
-* `didWalkNode(node)` called after all child nodes have been walked
-* `willWalkChildNode(node, parent, siblings)` called while walking a list of child nodes - this gives you inject or remove child nodes
-* `didWalkChildNode(node, parent, siblings)` called after all of a child's child nodes have been walked
-
 ## Get it
 `npm install aborist`
 
-## Test it (in node and your browser)
+## Test it
 `npm test`
+Runs a bash script that in turn runs the tests in node, then in your browser using [browserify](https://github.com/substack/node-browserify) - if your system doesn't have bash you can still do `node test` or maybe port the script to node.
 
 ## License
 [WTFPL](http://www.wtfpl.net/txt/copying/)

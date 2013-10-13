@@ -1,6 +1,6 @@
 {
   "name": "arborist",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "build, flatten and walk trees",
   "author": "Jesse Tane <jesse.tane@gmail.com>",
   "repository": {
@@ -17,11 +17,11 @@
   "testling": {
     "files": "test/index.js",
     "browsers": {
-      "ie": [ 8, 9, 10 ],
-      "firefox": [ 13 ],
-      "chrome": [ 20, 30 ],
-      "safari": [ 5.1 ],
-      "opera": [ 12 ]
+      "ie": [ 8, 9, "latest" ],
+      "firefox": [ 13, "latest" ],
+      "chrome": [ 20, "latest" ],
+      "safari": [ 5.1, "latest" ],
+      "opera": [ 12, "latest" ]
     }
   },
   "license": "WTFPL"
