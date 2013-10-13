@@ -16,13 +16,19 @@
   },
   "testling": {
     "files": "test/index.js",
-    "browsers": {
-      "ie": [ 8, 9, "latest" ],
-      "firefox": [ 13, "latest" ],
-      "chrome": [ 20, "latest" ],
-      "safari": [ 5.1, "latest" ],
-      "opera": [ 12, "latest" ]
-    }
+    "browsers": [
+      "ie/8..latest",
+      "firefox/20..latest",
+      "firefox/nightly",
+      "chrome/20..latest",
+      "chrome/canary",
+      "opera/12..latest",
+      "opera/next",
+      "safari/5.1..latest",
+      "ipad/6.0..latest",
+      "iphone/6.0..latest",
+      "android-browser/4.2..latest"
+    ]
   },
   "license": "WTFPL"
 }
