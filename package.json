@@ -1,6 +1,6 @@
 {
   "name": "arborist",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "build, flatten and walk trees",
   "author": "Jesse Tane <jesse.tane@gmail.com>",
   "repository": {
