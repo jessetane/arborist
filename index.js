@@ -17,6 +17,8 @@ Arborist.prototype.build = function(nodelist, parent) {
     if (isFalsy(parentId)) {
       return parent;
     }
+  } else {
+    parent = {};
   }
   for (var i=0; i<nodelist.length; i++) {
     var node = nodelist[i];
@@ -29,7 +31,6 @@ Arborist.prototype.build = function(nodelist, parent) {
                        : resolvedNode.parent;
       if (nodeParentId === parentId) {
         this.build(nodelist, node);
-        parent = parent ? parent : {};
         parent.childNodes = parent.childNodes || [];
         parent.childNodes.push(extend({}, node));
       }
