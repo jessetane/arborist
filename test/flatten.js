@@ -28,6 +28,50 @@ tape('flatten - no children', function(t) {
 
 ///////////////////////////////////////////
 
+tape('flatten - missing ids', function(t) {
+  t.plan(1);
+  
+  var input = {
+    childNodes: [
+      {
+        nonid: 'one'
+      }, {
+        nonid: 'two',
+        childNodes: [
+          {
+            id: 'three',
+            childNodes: [
+              {
+                nonid: 'four'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  };
+  
+  var expected = [
+    {
+      nonid: 'one'
+    }, {
+      nonid: 'two'
+    }, {
+      id: 'three'
+    }, {
+      nonid: 'four',
+      parent: 'three'
+    }
+  ];
+
+  var arborist = new Arborist;
+  var output = arborist.flatten(input);
+  t.equal(JSON.stringify(output),
+          JSON.stringify(expected));
+});
+
+///////////////////////////////////////////
+
 tape('flatten - one child', function(t) {
   t.plan(1);
   

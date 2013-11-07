@@ -28,6 +28,43 @@ tape('build - no children', function(t) {
 
 ///////////////////////////////////////////
 
+tape('build - missing ids', function(t) {
+  t.plan(1);
+  
+  var input = [
+    {
+      nonid: 'one'
+    }, {
+      nonid: 'two'
+    }, {
+      id: 'three'
+    }, {
+      nonid: 'four'
+    }
+  ];
+  
+  var expected = {
+    childNodes: [
+      {
+        nonid: 'one'
+      }, {
+        nonid: 'two'
+      }, {
+        id: 'three'
+      }, {
+        nonid: 'four'
+      }
+    ]
+  };
+  
+  var arborist = new Arborist;
+  var output = arborist.build(input);
+  t.equal(JSON.stringify(output),
+          JSON.stringify(expected));
+});
+
+///////////////////////////////////////////
+
 tape('build - one child', function(t) {
   t.plan(1);
   

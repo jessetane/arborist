@@ -7,13 +7,17 @@ module.exports = Arborist;
 function Arborist() {}
 
 Arborist.prototype.build = function(nodelist, parent) {
-  var parent = parent || {};
-  var resolvedParent = this.resolveNode
-                     ? this.resolveNode(parent)
-                     : parent;
-  var parentId = this.resolveNodeId 
-               ? this.resolveNodeId(parent) 
-               : resolvedParent.id;
+  if (parent) {
+    var resolvedParent = this.resolveNode
+                       ? this.resolveNode(parent)
+                       : parent;
+    var parentId = this.resolveNodeId 
+                 ? this.resolveNodeId(parent) 
+                 : resolvedParent.id;
+    if (isFalsy(parentId)) {
+      return parent;
+    }
+  }
   for (var i=0; i<nodelist.length; i++) {
     var node = nodelist[i];
     if (node !== parent) {
@@ -23,9 +27,9 @@ Arborist.prototype.build = function(nodelist, parent) {
       var nodeParentId = this.resolveNodeParentId
                        ? this.resolveNodeParentId(node)
                        : resolvedNode.parent;
-      if ((isFalsy(nodeParentId) && isFalsy(parentId))
-          || nodeParentId === parentId) {
+      if (nodeParentId === parentId) {
         this.build(nodelist, node);
+        parent = parent ? parent : {};
         parent.childNodes = parent.childNodes || [];
         parent.childNodes.push(extend({}, node));
       }
@@ -48,7 +52,9 @@ Arborist.prototype.flatten = function(node, nodelist) {
       var resolvedChild = this.resolveNode
                         ? this.resolveNode(child)
                         : child;
-      resolvedChild.parent = parentId;
+      if (!isFalsy(parentId)) {
+        resolvedChild.parent = parentId;  // NOTE: i'm assuming it's useful to inject a 'parent' field when flattening in case there wasn't one already
+      }
       nodelist.push(child);
       this.flatten(child, nodelist);
     }
